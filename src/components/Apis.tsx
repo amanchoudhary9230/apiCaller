@@ -20,7 +20,7 @@ const Apis: React.FC<ApisProps> = ({ apis, apisResponse, setApis }) => {
                 <a href={api} className="text-[#5bdde0] overflow-auto underline">
                   {api}
                 </a>
-                <div className="flex gap-6 w-4/12 justify-between items-center">
+                <div className="flex gap-6 md:w-4/12 justify-between items-center">
                   {apisResponse[api].loading ? (
                     <span className="loader my-1"></span>
                   ) : (
