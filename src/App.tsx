@@ -9,6 +9,7 @@ const App: React.FC = () => {
   const [api, setApi] = useState<string>("");
   const [apis, setApis] = useState<string[]>(LocalStorage.get("apis") ?? []);
   const [apisResponse, setApisResponse] = useState<ApiResponse>({});
+  const [time, setTime] = useState<number>(300);
 
   const fetchResponse = async (
     api: string
@@ -70,21 +71,38 @@ const App: React.FC = () => {
     setApis((prev) => [...prev, api]);
   };
 
+  const formatTime = (seconds: number): string => {
+    const minutes = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${minutes}:${secs < 10 ? "0" : ""}${secs}`;
+  };
+
   useEffect(() => {
     callingApis();
 
-    const interval = setInterval(() => {
-      callingApis();
-    }, 60000 * 5);
+    // Start the countdown timer
+    setTime(300);
+    const countdownInterval = setInterval(() => {
+      setTime((prevTime) => prevTime - 1);
+    }, 1000);
 
-    return () => clearInterval(interval);
+    // Cleanup intervals on component unmount
+    return () => clearInterval(countdownInterval);
   }, [apis]);
+
+  useEffect(() => {
+    if (time <= 0) {
+      setTime(300);
+      callingApis();
+    }
+  }, [time]);
 
   return (
     <div className="h-full">
       <div className="h-[11rem] w-full px-2 py-1 bg-[rgb(138,90,68)]">
-        <nav className="text-[#ced4da] italic font-jaro text-2xl">
-          Api Caller
+        <nav className="text-[#ced4da] md:px-4 flex justify-between italic font-jaro text-2xl">
+          <div>Api Caller</div>
+          <div className="text-[#ced4da]">{formatTime(time)}</div>
         </nav>
         <div className="flex justify-center h-full">
           <form
@@ -104,7 +122,7 @@ const App: React.FC = () => {
           </form>
         </div>
       </div>
-      <div className="h-[calc(100%-12.5rem)]">
+      <div className="apis-window">
         <div className="h-full p-4">
           {Object.keys(apisResponse).length > 0 && (
             <Apis apis={apis} apisResponse={apisResponse} setApis={setApis} />
