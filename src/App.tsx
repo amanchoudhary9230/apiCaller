@@ -43,7 +43,6 @@ const App: React.FC = () => {
               message: data.data.message,
             },
           }));
-          console.log(data);
         } else {
           // Handle AxiosError
           console.error("Error fetching data:", data);
