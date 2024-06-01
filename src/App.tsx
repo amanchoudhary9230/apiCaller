@@ -66,10 +66,11 @@ const App: React.FC = () => {
     if (apis.includes(api)) {
       return;
     }
-    LocalStorage.set("apis", [...LocalStorage.get("apis"), api]); // Store updated APIs in local storage
+    const updatedApis = LocalStorage.get("apis") ?? [];
+    LocalStorage.set("apis", [...updatedApis, api]); // Store updated APIs in local storage
     setApis((prev) => [...prev, api]);
-    fetchResponse(api);
   };
+
   useEffect(() => {
     callingApis();
 
@@ -78,7 +79,7 @@ const App: React.FC = () => {
     }, 60000 * 5);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [apis]);
 
   return (
     <div className="h-full">
@@ -111,7 +112,10 @@ const App: React.FC = () => {
           )}
         </div>
       </div>
-      <footer className="text-white text-sm px-2">Our website ensures the continuous availability and activity of the server by automatically re-calling GET APIs every 5 minutes.</footer>
+      <footer className="text-white text-sm px-2">
+        Our website ensures the continuous availability and activity of the
+        server by automatically re-calling GET APIs every 5 minutes.
+      </footer>
     </div>
   );
 };
