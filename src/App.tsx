@@ -9,7 +9,7 @@ const App: React.FC = () => {
   const [api, setApi] = useState<string>("");
   const [apis, setApis] = useState<string[]>(LocalStorage.get("apis") ?? []);
   const [apisResponse, setApisResponse] = useState<ApiResponse>({});
-  const [time, setTime] = useState<number>(300);
+  const [time, setTime] = useState<number>(60);
 
   const fetchResponse = async (
     api: string
@@ -81,7 +81,7 @@ const App: React.FC = () => {
     callingApis();
 
     // Start the countdown timer
-    setTime(300);
+    setTime(60);
     const countdownInterval = setInterval(() => {
       setTime((prevTime) => prevTime - 1);
     }, 1000);
@@ -92,14 +92,14 @@ const App: React.FC = () => {
 
   useEffect(() => {
     if (time <= 0) {
-      setTime(300);
+      setTime(60);
       callingApis();
     }
   }, [time]);
 
   return (
     <div className="h-full">
-      <div className="h-[11rem] w-full px-2 py-1 bg-[rgb(138,90,68)]">
+      <div className="h-[11rem] w-full px-2 py-1 bg-[rgb(191,126,96)]">
         <nav className="text-[#ced4da] md:px-4 flex justify-between italic font-jaro text-2xl">
           <div>Api Caller</div>
           <div className="text-[#ced4da]">{formatTime(time)}</div>
@@ -131,7 +131,7 @@ const App: React.FC = () => {
       </div>
       <footer className="text-white text-sm px-2">
         Our website ensures the continuous availability and activity of the
-        server by automatically re-calling GET APIs every 5 minutes.
+        server by automatically re-calling GET APIs every 2 minutes.
       </footer>
     </div>
   );
