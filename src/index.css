@@ -23,10 +23,6 @@ body {
     overflow: hidden auto;
 }
 
-.apis-window {
-    height: calc(100% - 12.5rem);
-}
-
 .loader {
     width: 25px;
     height: 25px;
@@ -45,29 +41,5 @@ body {
 
     100% {
         transform: rotate(360deg);
-    }
-}
-
-@media (max-width: 831px) {
-    .apis-window {
-        height: calc(100% - 13.5rem);
-    }
-}
-
-@media (max-width: 429px) {
-    .apis-window {
-        height: calc(100% - 14.9rem);
-    }
-}
-
-@media (max-width: 319px) {
-    .apis-window {
-        height: calc(100% - 16.2rem);
-    }
-}
-
-@media (max-width: 236px) {
-    .apis-window {
-        height: calc(100% - 17.5rem);
     }
 }

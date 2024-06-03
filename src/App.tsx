@@ -122,7 +122,7 @@ const App: React.FC = () => {
           </form>
         </div>
       </div>
-      <div className="apis-window">
+      <div className="h-[calc(100%-12.5rem)]">
         <div className="h-full p-4">
           {Object.keys(apisResponse).length > 0 && (
             <Apis apis={apis} apisResponse={apisResponse} setApis={setApis} />
@@ -130,8 +130,7 @@ const App: React.FC = () => {
         </div>
       </div>
       <footer className="text-white text-sm px-2">
-        Our website ensures the continuous availability and activity of the
-        server by automatically re-calling GET APIs every 2 minutes.
+        ApiCaller automatically re-call GET APIs every minute.
       </footer>
     </div>
   );
